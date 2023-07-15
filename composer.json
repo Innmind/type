@@ -1,0 +1,34 @@
+{
+    "name": "innmind/type",
+    "type": "library",
+    "description": "",
+    "keywords": [],
+    "homepage": "http://github.com/innmind/type",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baptiste Langlade",
+            "email": "baptiste.langlade@hey.com"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/innmind/type/issues"
+    },
+    "require": {
+        "php": "~8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Innmind\\Type\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "require-dev": {
+        "vimeo/psalm": "~5.13",
+        "innmind/black-box": "~5.1",
+        "innmind/coding-standard": "~2.0"
+    }
+}
