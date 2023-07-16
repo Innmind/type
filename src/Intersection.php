@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Innmind\Type;
 
 /**
+ * @psalm-immutable
  * @template A
  * @template B
  * @implements Type<A&B>
@@ -26,6 +27,7 @@ final class Intersection implements Type
     }
 
     /**
+     * @psalm-pure
      * @template C
      * @template D
      *

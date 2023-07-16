@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Innmind\Type;
 
 /**
+ * @psalm-immutable
  * @template A
  * @implements Type<?A>
  */
@@ -21,6 +22,7 @@ final class Nullable implements Type
     }
 
     /**
+     * @psalm-pure
      * @template B
      *
      * @param Type<B> $type

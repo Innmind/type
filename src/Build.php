@@ -9,6 +9,9 @@ final class Build
     {
     }
 
+    /**
+     * @psalm-pure
+     */
     public static function fromReflection(?\ReflectionType $type): Type
     {
         return match ($type) {
@@ -17,6 +20,9 @@ final class Build
         };
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function analyze(\ReflectionType $refl): Type
     {
         $type = match ($refl::class) {
@@ -35,10 +41,13 @@ final class Build
         };
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function ofNamed(\ReflectionNamedType $refl): Type
     {
         /** @psalm-suppress ArgumentTypeCoercion */
-        $type = match ($refl->getName()) {
+        return match ($refl->getName()) {
             'string' => Primitive::string(),
             'int' => Primitive::int(),
             'float' => Primitive::float(),
@@ -48,10 +57,11 @@ final class Build
             'mixed' => Primitive::mixed(),
             default => ClassName::of($refl->getName()),
         };
-
-        return $type;
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function ofUnion(\ReflectionUnionType $refl): Type
     {
         $types = \array_filter(
@@ -75,6 +85,9 @@ final class Build
         );
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function ofIntersection(\ReflectionIntersectionType $refl): Type
     {
         $types = \array_map(self::analyze(...), $refl->getTypes());

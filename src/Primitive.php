@@ -4,18 +4,19 @@ declare(strict_types = 1);
 namespace Innmind\Type;
 
 /**
+ * @psalm-immutable
  * @template A
  * @implements Type<A>
  */
 final class Primitive implements Type
 {
-    /** @var callable(mixed): bool */
+    /** @var pure-callable(mixed): bool */
     private $allows;
     /** @var non-empty-string */
     private string $kind;
 
     /**
-     * @param callable(mixed): bool $allows
+     * @param pure-callable(mixed): bool $allows
      * @param non-empty-string $kind
      */
     private function __construct(callable $allows, string $kind)
@@ -25,6 +26,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<string>
      */
     public static function string(): self
@@ -34,6 +37,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<int>
      */
     public static function int(): self
@@ -43,6 +48,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<float>
      */
     public static function float(): self
@@ -52,6 +59,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<bool>
      */
     public static function bool(): self
@@ -61,6 +70,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<array>
      */
     public static function array(): self
@@ -70,6 +81,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<object>
      */
     public static function object(): self
@@ -79,6 +92,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<resource>
      */
     public static function resource(): self
@@ -88,6 +103,8 @@ final class Primitive implements Type
     }
 
     /**
+     * @psalm-pure
+     *
      * @return self<mixed>
      */
     public static function mixed(): self

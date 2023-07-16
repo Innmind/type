@@ -5,6 +5,7 @@ namespace Innmind\Type;
 
 /**
  * @template T
+ * @psalm-immutable
  */
 interface Type
 {
