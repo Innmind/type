@@ -11,32 +11,32 @@ namespace Innmind\Type;
 final class Intersection implements Type
 {
     /** @var Type<A> */
-    private Type $a;
+    private Type $left;
     /** @var Type<B> */
-    private Type $b;
+    private Type $right;
 
     /**
-     * @param Type<A> $a
-     * @param Type<B> $b
+     * @param Type<A> $left
+     * @param Type<B> $right
      */
-    private function __construct(Type $a, Type $b)
+    private function __construct(Type $left, Type $right)
     {
-        $this->a = $a;
-        $this->b = $b;
+        $this->left = $left;
+        $this->right = $right;
     }
 
     /**
      * @template C
      * @template D
      *
-     * @param Type<C> $a
-     * @param Type<D> $b
+     * @param Type<C> $left
+     * @param Type<D> $right
      *
      * @return self<C, D>
      */
-    public static function of(Type $a, Type $b): self
+    public static function of(Type $left, Type $right): self
     {
-        return new self($a, $b);
+        return new self($left, $right);
     }
 
     /**
@@ -44,7 +44,7 @@ final class Intersection implements Type
      */
     public function left(): Type
     {
-        return $this->a;
+        return $this->left;
     }
 
     /**
@@ -52,28 +52,28 @@ final class Intersection implements Type
      */
     public function right(): Type
     {
-        return $this->b;
+        return $this->right;
     }
 
     public function allows(mixed $value): bool
     {
-        return $this->a->allows($value) && $this->b->allows($value);
+        return $this->left->allows($value) && $this->right->allows($value);
     }
 
     public function accepts(Type $type): bool
     {
         if ($type instanceof ClassName) {
-            return $this->a->accepts($type) && $this->b->accepts($type);
+            return $this->left->accepts($type) && $this->right->accepts($type);
         }
 
         if ($type instanceof self) {
             // (Countable&Iterator) E (Countable&Iterator)
-            if ($this->a->accepts($type->left())) {
-                return $this->b->accepts($type->right());
+            if ($this->left->accepts($type->left())) {
+                return $this->right->accepts($type->right());
             }
 
             // (Countable&Iterator) E (Iterator&Countable)
-            return $this->a->accepts($type->right()) && $this->b->accepts($type->left());
+            return $this->left->accepts($type->right()) && $this->right->accepts($type->left());
         }
 
         return false;
@@ -81,17 +81,17 @@ final class Intersection implements Type
 
     public function toString(): string
     {
-        $a = $this->a->toString();
-        $b = $this->b->toString();
+        $left = $this->left->toString();
+        $right = $this->right->toString();
 
-        if ($this->a instanceof Union) {
-            $a = "($a)";
+        if ($this->left instanceof Union) {
+            $left = "($left)";
         }
 
-        if ($this->b instanceof Union) {
-            $b = "($b)";
+        if ($this->right instanceof Union) {
+            $right = "($right)";
         }
 
-        return $a.'&'.$b;
+        return $left.'&'.$right;
     }
 }
