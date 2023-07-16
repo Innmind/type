@@ -42,7 +42,11 @@ final class Nullable implements Type
 
     public function accepts(Type $type): bool
     {
-        return false; // todo
+        if ($type instanceof self) {
+            return $this->type->accepts($type->type);
+        }
+
+        return $this->type->accepts($type);
     }
 
     public function toString(): string
