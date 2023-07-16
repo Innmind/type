@@ -62,7 +62,21 @@ final class Intersection implements Type
 
     public function accepts(Type $type): bool
     {
-        return false; // todo
+        if ($type instanceof ClassName) {
+            return $this->a->accepts($type) && $this->b->accepts($type);
+        }
+
+        if ($type instanceof self) {
+            // (Countable&Iterator) E (Countable&Iterator)
+            if ($this->a->accepts($type->left())) {
+                return $this->b->accepts($type->right());
+            }
+
+            // (Countable&Iterator) E (Iterator&Countable)
+            return $this->a->accepts($type->right()) && $this->b->accepts($type->left());
+        }
+
+        return false;
     }
 
     public function toString(): string
