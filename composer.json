@@ -24,6 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Fixtures\\Innmind\\Type\\": "fixtures/"
         }
     },
     "require-dev": {
