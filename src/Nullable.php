@@ -34,6 +34,14 @@ final class Nullable implements Type
         return new self($type);
     }
 
+    /**
+     * @return Type<A>
+     */
+    public function type(): Type
+    {
+        return $this->type;
+    }
+
     public function allows(mixed $value): bool
     {
         return match ($value) {
@@ -45,7 +53,7 @@ final class Nullable implements Type
     public function accepts(Type $type): bool
     {
         if ($type instanceof self) {
-            return $this->type->accepts($type->type);
+            return $this->type->accepts($type->type());
         }
 
         return $this->type->accepts($type);

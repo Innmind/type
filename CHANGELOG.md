@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 - 2023-07-22
+
+### Added
+
+- `Innmind\Type\Nullable::type()`
+
 ## 1.0.0 - 2023-07-16
 
 ### Added
