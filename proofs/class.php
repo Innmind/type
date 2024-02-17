@@ -23,9 +23,9 @@ return static function() {
     yield test(
         'ClassName::allows()',
         static function($assert) {
-            $type = ClassName::of(\stdClass::class);
+            $type = ClassName::of(stdClass::class);
 
-            $assert->true($type->allows(new \stdClass));
+            $assert->true($type->allows(new stdClass));
             $assert->false($type->allows(new class {
             }));
         },
@@ -33,22 +33,22 @@ return static function() {
     yield test(
         'ClassName::accepts()',
         static function($assert) {
-            $type = ClassName::of(\stdClass::class);
+            $type = ClassName::of(stdClass::class);
 
-            $assert->true($type->accepts(ClassName::of(\stdClass::class)));
-            $assert->false($type->accepts(ClassName::of(\Iterator::class)));
+            $assert->true($type->accepts(ClassName::of(stdClass::class)));
+            $assert->false($type->accepts(ClassName::of(Iterator::class)));
 
-            $type = ClassName::of(\Traversable::class);
+            $type = ClassName::of(Traversable::class);
 
-            $assert->true($type->accepts(ClassName::of(\Iterator::class)));
-            $assert->true($type->accepts(ClassName::of(\IteratorAggregate::class)));
+            $assert->true($type->accepts(ClassName::of(Iterator::class)));
+            $assert->true($type->accepts(ClassName::of(IteratorAggregate::class)));
             $assert->true($type->accepts(Union::of(
-                ClassName::of(\IteratorAggregate::class),
-                ClassName::of(\Iterator::class),
+                ClassName::of(IteratorAggregate::class),
+                ClassName::of(Iterator::class),
             )));
             $assert->true($type->accepts(Intersection::of(
-                ClassName::of(\IteratorAggregate::class),
-                ClassName::of(\Iterator::class),
+                ClassName::of(IteratorAggregate::class),
+                ClassName::of(Iterator::class),
             )));
         },
     );
@@ -68,7 +68,7 @@ return static function() {
             ),
         )),
         static function($assert, $primitive) {
-            $type = ClassName::of(\stdClass::class);
+            $type = ClassName::of(stdClass::class);
 
             $assert->false($type->accepts($primitive));
         },

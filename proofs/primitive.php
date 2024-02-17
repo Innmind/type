@@ -28,7 +28,7 @@ return static function() {
             Set\Either::any(
                 Set\Integers::any(),
                 Set\RealNumbers::any(),
-                Set\Elements::of(true, false, null, new \stdClass),
+                Set\Elements::of(true, false, null, new stdClass),
             ),
         ),
         static function($assert, $string, $nonString) {
@@ -157,7 +157,7 @@ return static function() {
         static function($assert) {
             $object = Primitive::object();
 
-            $assert->true($object->accepts(ClassName::of(\stdClass::class)));
+            $assert->true($object->accepts(ClassName::of(stdClass::class)));
         },
     );
     yield proof(
@@ -175,11 +175,11 @@ return static function() {
             $object = Primitive::object();
 
             $assert->true($object->accepts(Union::of(
-                ClassName::of(\stdClass::class),
-                ClassName::of(\stdClass::class),
+                ClassName::of(stdClass::class),
+                ClassName::of(stdClass::class),
             )));
             $assert->false($object->accepts(Union::of(
-                ClassName::of(\stdClass::class),
+                ClassName::of(stdClass::class),
                 $type,
             )));
         },
@@ -199,11 +199,11 @@ return static function() {
             $object = Primitive::object();
 
             $assert->true($object->accepts(Intersection::of(
-                ClassName::of(\stdClass::class),
-                ClassName::of(\stdClass::class),
+                ClassName::of(stdClass::class),
+                ClassName::of(stdClass::class),
             )));
             $assert->false($object->accepts(Intersection::of(
-                ClassName::of(\stdClass::class),
+                ClassName::of(stdClass::class),
                 $type,
             )));
         },

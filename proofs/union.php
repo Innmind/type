@@ -27,7 +27,7 @@ return static function() {
         'Union::allows() failure',
         given(Set\Either::any(
             Set\Strings::any(),
-            Set\Elements::of(true, false, null, new \stdClass),
+            Set\Elements::of(true, false, null, new stdClass),
         )),
         static function($assert, $value) {
             $type = Union::of(

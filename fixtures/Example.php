@@ -19,4 +19,5 @@ final class Example
     private \ArrayAccess&\Iterator $intersection;
     private (\ArrayAccess&\Iterator)|self $intersectionAndUnion;
     private null|(\ArrayAccess&\Iterator)|self $nullableIntersectionAndUnion;
+    private Sort $enum;
 }

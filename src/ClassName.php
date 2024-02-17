@@ -12,13 +12,15 @@ final class ClassName implements Type
 {
     /** @var class-string<A> */
     private string $class;
+    private bool $enum;
 
     /**
      * @param class-string<A> $class
      */
-    private function __construct(string $class)
+    private function __construct(string $class, bool $enum)
     {
         $this->class = $class;
+        $this->enum = $enum;
     }
 
     /**
@@ -31,7 +33,25 @@ final class ClassName implements Type
      */
     public static function of(string $class): self
     {
-        return new self($class);
+        return new self($class, false);
+    }
+
+    /**
+     * @psalm-pure
+     * @template C of object
+     *
+     * @param class-string<C> $class
+     *
+     * @return self<C>
+     */
+    public static function ofEnum(string $class): self
+    {
+        return new self($class, true);
+    }
+
+    public function enum(): bool
+    {
+        return $this->enum;
     }
 
     public function allows(mixed $value): bool
