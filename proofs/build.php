@@ -9,7 +9,7 @@ return static function() {
     yield test(
         'Build no type is coalesced to mixed',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'unknown');
+            $refl = new ReflectionProperty(Example::class, 'unknown');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -29,7 +29,7 @@ return static function() {
             'mixed',
         )),
         static function($assert, $primitive) {
-            $refl = new \ReflectionProperty(Example::class, $primitive);
+            $refl = new ReflectionProperty(Example::class, $primitive);
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -40,7 +40,7 @@ return static function() {
     yield test(
         'Build nullable primitive',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'nullable');
+            $refl = new ReflectionProperty(Example::class, 'nullable');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -51,7 +51,7 @@ return static function() {
     yield test(
         'Build class',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'class');
+            $refl = new ReflectionProperty(Example::class, 'class');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -62,7 +62,7 @@ return static function() {
     yield test(
         'Build union',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'union');
+            $refl = new ReflectionProperty(Example::class, 'union');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -73,7 +73,7 @@ return static function() {
     yield test(
         'Build intersection',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'intersection');
+            $refl = new ReflectionProperty(Example::class, 'intersection');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -84,7 +84,7 @@ return static function() {
     yield test(
         'Build intersection and union',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'intersectionAndUnion');
+            $refl = new ReflectionProperty(Example::class, 'intersectionAndUnion');
             $type = Build::fromReflection($refl->getType());
 
             $assert
@@ -95,7 +95,7 @@ return static function() {
     yield test(
         'Build nullable intersection and union',
         static function($assert) {
-            $refl = new \ReflectionProperty(Example::class, 'nullableIntersectionAndUnion');
+            $refl = new ReflectionProperty(Example::class, 'nullableIntersectionAndUnion');
             $type = Build::fromReflection($refl->getType());
 
             $assert

@@ -21,9 +21,9 @@ return static function() {
         Primitive::resource(),
     );
     $classes = Set\Elements::of(
-        \ArrayObject::class,
-        \Iterator::class,
-        \Countable::class,
+        ArrayObject::class,
+        Iterator::class,
+        Countable::class,
     )->map(ClassName::of(...));
 
     yield proof(
@@ -41,8 +41,8 @@ return static function() {
             ),
             Set\Composite::immutable(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Elements::of(new \ArrayObject)),
-                Set\Elements::of(ClassName::of(\ArrayObject::class)),
+                Set\Nullable::of(Set\Elements::of(new ArrayObject)),
+                Set\Elements::of(ClassName::of(ArrayObject::class)),
             ),
             Set\Composite::immutable(
                 static fn(...$args) => $args,
@@ -57,10 +57,10 @@ return static function() {
             ),
             Set\Composite::immutable(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Elements::of(new \ArrayObject)),
+                Set\Nullable::of(Set\Elements::of(new ArrayObject)),
                 Set\Elements::of(Intersection::of(
-                    ClassName::of(\Countable::class),
-                    ClassName::of(\IteratorAggregate::class),
+                    ClassName::of(Countable::class),
+                    ClassName::of(IteratorAggregate::class),
                 )),
             ),
         )),
@@ -86,7 +86,7 @@ return static function() {
             Set\Composite::immutable(
                 static fn(...$args) => $args,
                 Set\Strings::any(),
-                Set\Elements::of(ClassName::of(\ArrayObject::class)),
+                Set\Elements::of(ClassName::of(ArrayObject::class)),
             ),
             Set\Composite::immutable(
                 static fn(...$args) => $args,
@@ -98,10 +98,10 @@ return static function() {
             ),
             Set\Composite::immutable(
                 static fn(...$args) => $args,
-                Set\Elements::of(new \SplObjectStorage),
+                Set\Elements::of(new SplObjectStorage),
                 Set\Elements::of(Intersection::of(
-                    ClassName::of(\Countable::class),
-                    ClassName::of(\IteratorAggregate::class),
+                    ClassName::of(Countable::class),
+                    ClassName::of(IteratorAggregate::class),
                 )),
             ),
         )),
@@ -151,7 +151,7 @@ return static function() {
             Set\Composite::immutable(
                 static fn(...$args) => $args,
                 Set\Elements::of(Primitive::string()),
-                Set\Elements::of(ClassName::of(\Countable::class)),
+                Set\Elements::of(ClassName::of(Countable::class)),
             ),
         )),
         static function($assert, $pair) {
