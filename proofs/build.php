@@ -2,7 +2,10 @@
 declare(strict_types = 1);
 
 use Innmind\Type\Build;
-use Fixtures\Innmind\Type\Example;
+use Fixtures\Innmind\Type\{
+    Example,
+    Sort,
+};
 use Innmind\BlackBox\Set;
 
 return static function() {
@@ -56,6 +59,18 @@ return static function() {
 
             $assert
                 ->expected('stdClass')
+                ->same($type->toString());
+        },
+    );
+    yield test(
+        'Build enum',
+        static function($assert) {
+            $refl = new ReflectionProperty(Example::class, 'enum');
+            $type = Build::fromReflection($refl->getType());
+
+            $assert->true($type->enum());
+            $assert
+                ->expected(Sort::class)
                 ->same($type->toString());
         },
     );

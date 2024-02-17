@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- `Innmind\Type\ClassName::enum()` to check if the class represent an enum
+
 ## 1.1.0 - 2023-07-22
 
 ### Added

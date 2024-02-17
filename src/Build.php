@@ -55,7 +55,11 @@ final class Build
             'array' => Primitive::array(),
             'object' => Primitive::object(),
             'mixed' => Primitive::mixed(),
-            default => ClassName::of($refl->getName()),
+            'self', 'static' => ClassName::of($refl->getName()),
+            default => match ((new \ReflectionClass($refl->getName()))->isEnum()) {
+                true => ClassName::ofEnum($refl->getName()),
+                false => ClassName::of($refl->getName()),
+            },
         };
     }
 
