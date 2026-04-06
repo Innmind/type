@@ -54,11 +54,13 @@ final class ClassName implements Type
         return $this->enum;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return $value instanceof $this->class;
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof Union || $type instanceof Intersection) {
@@ -72,6 +74,7 @@ final class ClassName implements Type
         return \is_a($type->toString(), $this->class, true);
     }
 
+    #[\Override]
     public function toString(): string
     {
         return $this->class;
