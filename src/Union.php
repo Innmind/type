@@ -36,6 +36,7 @@ final class Union implements Type
      *
      * @return self<C, D>
      */
+    #[\NoDiscard]
     public static function of(Type $left, Type $right): self
     {
         return new self($left, $right);
@@ -44,6 +45,7 @@ final class Union implements Type
     /**
      * @return Type<A>
      */
+    #[\NoDiscard]
     public function left(): Type
     {
         return $this->left;
@@ -52,6 +54,7 @@ final class Union implements Type
     /**
      * @return Type<B>
      */
+    #[\NoDiscard]
     public function right(): Type
     {
         return $this->right;
