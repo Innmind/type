@@ -22,7 +22,7 @@ return static function() {
     );
     yield proof(
         'Build primitive',
-        given(Set\Elements::of(
+        given(Set::of(
             'string',
             'int',
             'float',
@@ -81,8 +81,11 @@ return static function() {
             $type = Build::fromReflection($refl->getType());
 
             $assert
-                ->expected('stdClass|self')
-                ->same($type->toString());
+                ->array([
+                    'stdClass|self',
+                    'stdClass|'.Example::class, // PHP changed the behaviour in version 8.5
+                ])
+                ->contains($type->toString());
         },
     );
     yield test(
@@ -103,8 +106,11 @@ return static function() {
             $type = Build::fromReflection($refl->getType());
 
             $assert
-                ->expected('(ArrayAccess&Iterator)|self')
-                ->same($type->toString());
+                ->array([
+                    '(ArrayAccess&Iterator)|self',
+                    '(ArrayAccess&Iterator)|'.Example::class, // PHP changed the behaviour in version 8.5
+                ])
+                ->contains($type->toString());
         },
     );
     yield test(
@@ -114,8 +120,11 @@ return static function() {
             $type = Build::fromReflection($refl->getType());
 
             $assert
-                ->expected('null|(ArrayAccess&Iterator)|self')
-                ->same($type->toString());
+                ->array([
+                    'null|(ArrayAccess&Iterator)|self',
+                    'null|(ArrayAccess&Iterator)|'.Example::class, // PHP changed the behaviour in version 8.5
+                ])
+                ->contains($type->toString());
         },
     );
 };

@@ -57,11 +57,13 @@ final class Intersection implements Type
         return $this->right;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return $this->left->allows($value) && $this->right->allows($value);
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof ClassName) {
@@ -81,6 +83,7 @@ final class Intersection implements Type
         return false;
     }
 
+    #[\Override]
     public function toString(): string
     {
         $left = $this->left->toString();

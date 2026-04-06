@@ -42,6 +42,7 @@ final class Nullable implements Type
         return $this->type;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return match ($value) {
@@ -50,6 +51,7 @@ final class Nullable implements Type
         };
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof self) {
@@ -59,6 +61,7 @@ final class Nullable implements Type
         return $this->type->accepts($type);
     }
 
+    #[\Override]
     public function toString(): string
     {
         if ($this->type instanceof Union) {

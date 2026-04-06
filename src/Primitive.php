@@ -113,11 +113,13 @@ final class Primitive implements Type
         return new self(static fn() => true, 'mixed');
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return ($this->allows)($value);
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($this->kind === 'mixed') {
@@ -139,6 +141,7 @@ final class Primitive implements Type
         return $type instanceof self && $type->kind === $this->kind;
     }
 
+    #[\Override]
     public function toString(): string
     {
         return $this->kind;
