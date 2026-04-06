@@ -10,17 +10,13 @@ namespace Innmind\Type;
  */
 final class ClassName implements Type
 {
-    /** @var class-string<A> */
-    private string $class;
-    private bool $enum;
-
     /**
      * @param class-string<A> $class
      */
-    private function __construct(string $class, bool $enum)
-    {
-        $this->class = $class;
-        $this->enum = $enum;
+    private function __construct(
+        private string $class,
+        private bool $enum,
+    ) {
     }
 
     /**
@@ -31,6 +27,7 @@ final class ClassName implements Type
      *
      * @return self<C>
      */
+    #[\NoDiscard]
     public static function of(string $class): self
     {
         return new self($class, false);
@@ -44,21 +41,25 @@ final class ClassName implements Type
      *
      * @return self<C>
      */
+    #[\NoDiscard]
     public static function ofEnum(string $class): self
     {
         return new self($class, true);
     }
 
+    #[\NoDiscard]
     public function enum(): bool
     {
         return $this->enum;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return $value instanceof $this->class;
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof Union || $type instanceof Intersection) {
@@ -72,6 +73,7 @@ final class ClassName implements Type
         return \is_a($type->toString(), $this->class, true);
     }
 
+    #[\Override]
     public function toString(): string
     {
         return $this->class;

@@ -11,19 +11,14 @@ namespace Innmind\Type;
  */
 final class Intersection implements Type
 {
-    /** @var Type<A> */
-    private Type $left;
-    /** @var Type<B> */
-    private Type $right;
-
     /**
      * @param Type<A> $left
      * @param Type<B> $right
      */
-    private function __construct(Type $left, Type $right)
-    {
-        $this->left = $left;
-        $this->right = $right;
+    private function __construct(
+        private Type $left,
+        private Type $right,
+    ) {
     }
 
     /**
@@ -36,6 +31,7 @@ final class Intersection implements Type
      *
      * @return self<C, D>
      */
+    #[\NoDiscard]
     public static function of(Type $left, Type $right): self
     {
         return new self($left, $right);
@@ -44,6 +40,7 @@ final class Intersection implements Type
     /**
      * @return Type<A>
      */
+    #[\NoDiscard]
     public function left(): Type
     {
         return $this->left;
@@ -52,16 +49,19 @@ final class Intersection implements Type
     /**
      * @return Type<B>
      */
+    #[\NoDiscard]
     public function right(): Type
     {
         return $this->right;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return $this->left->allows($value) && $this->right->allows($value);
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof ClassName) {
@@ -81,6 +81,7 @@ final class Intersection implements Type
         return false;
     }
 
+    #[\Override]
     public function toString(): string
     {
         $left = $this->left->toString();

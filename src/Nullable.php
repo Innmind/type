@@ -10,15 +10,12 @@ namespace Innmind\Type;
  */
 final class Nullable implements Type
 {
-    /** @var Type<A> */
-    private Type $type;
-
     /**
      * @param Type<A> $type
      */
-    private function __construct(Type $type)
-    {
-        $this->type = $type;
+    private function __construct(
+        private Type $type,
+    ) {
     }
 
     /**
@@ -29,6 +26,7 @@ final class Nullable implements Type
      *
      * @return self<B>
      */
+    #[\NoDiscard]
     public static function of(Type $type): self
     {
         return new self($type);
@@ -37,11 +35,13 @@ final class Nullable implements Type
     /**
      * @return Type<A>
      */
+    #[\NoDiscard]
     public function type(): Type
     {
         return $this->type;
     }
 
+    #[\Override]
     public function allows(mixed $value): bool
     {
         return match ($value) {
@@ -50,6 +50,7 @@ final class Nullable implements Type
         };
     }
 
+    #[\Override]
     public function accepts(Type $type): bool
     {
         if ($type instanceof self) {
@@ -59,6 +60,7 @@ final class Nullable implements Type
         return $this->type->accepts($type);
     }
 
+    #[\Override]
     public function toString(): string
     {
         if ($this->type instanceof Union) {

@@ -12,6 +12,7 @@ final class Build
     /**
      * @psalm-pure
      */
+    #[\NoDiscard]
     public static function fromReflection(?\ReflectionType $type): Type
     {
         return match ($type) {

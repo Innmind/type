@@ -10,9 +10,9 @@ use Innmind\BlackBox\Set;
 return static function() {
     yield proof(
         'Union::allows()',
-        given(Set\Either::any(
-            Set\Integers::any(),
-            Set\RealNumbers::any(),
+        given(Set::either(
+            Set::integers(),
+            Set::realNumbers(),
         )),
         static function($assert, $value) {
             $type = Union::of(
@@ -25,9 +25,9 @@ return static function() {
     );
     yield proof(
         'Union::allows() failure',
-        given(Set\Either::any(
-            Set\Strings::any(),
-            Set\Elements::of(true, false, null, new stdClass),
+        given(Set::either(
+            Set::strings(),
+            Set::of(true, false, null, new stdClass),
         )),
         static function($assert, $value) {
             $type = Union::of(
@@ -40,7 +40,7 @@ return static function() {
     );
     yield proof(
         'Union::accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::bool(),
             Primitive::array(),
