@@ -10,7 +10,7 @@ use Innmind\Type\{
 use Innmind\BlackBox\Set;
 
 return static function() {
-    $primitives = Set\Elements::of(
+    $primitives = Set::of(
         Primitive::string(),
         Primitive::int(),
         Primitive::float(),
@@ -54,14 +54,14 @@ return static function() {
     );
     yield proof(
         'ClassName::accepts() fail on primitives',
-        given(Set\Either::any(
+        given(Set::either(
             $primitives,
-            Set\Composite::immutable(
+            Set::compose(
                 Union::of(...),
                 $primitives,
                 $primitives,
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 Intersection::of(...),
                 $primitives,
                 $primitives,

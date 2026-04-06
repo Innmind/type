@@ -11,7 +11,7 @@ use Innmind\Type\{
 use Innmind\BlackBox\Set;
 
 return static function() {
-    $primitives = Set\Elements::of(
+    $primitives = Set::of(
         Primitive::string(),
         Primitive::int(),
         Primitive::float(),
@@ -24,11 +24,11 @@ return static function() {
     yield proof(
         'Primitive::string()->allows()',
         given(
-            Set\Strings::madeOf(Set\Unicode::any()),
-            Set\Either::any(
-                Set\Integers::any(),
-                Set\RealNumbers::any(),
-                Set\Elements::of(true, false, null, new stdClass),
+            Set::strings()->madeOf(Set::strings()->unicode()->char()),
+            Set::either(
+                Set::integers(),
+                Set::realNumbers(),
+                Set::of(true, false, null, new stdClass),
             ),
         ),
         static function($assert, $string, $nonString) {
@@ -40,7 +40,7 @@ return static function() {
     );
     yield proof(
         'Primitive::string()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::int(),
             Primitive::float(),
             Primitive::bool(),
@@ -59,7 +59,7 @@ return static function() {
     );
     yield proof(
         'Primitive::int()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::float(),
             Primitive::bool(),
@@ -78,7 +78,7 @@ return static function() {
     );
     yield proof(
         'Primitive::float()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::bool(),
@@ -97,7 +97,7 @@ return static function() {
     );
     yield proof(
         'Primitive::bool()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -116,7 +116,7 @@ return static function() {
     );
     yield proof(
         'Primitive::array()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -135,7 +135,7 @@ return static function() {
     );
     yield proof(
         'Primitive::object()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -162,7 +162,7 @@ return static function() {
     );
     yield proof(
         'Primitive::object()->accepts() unions',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -186,7 +186,7 @@ return static function() {
     );
     yield proof(
         'Primitive::object()->accepts() intersections',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -210,7 +210,7 @@ return static function() {
     );
     yield proof(
         'Primitive::resource()->accepts()',
-        given(Set\Elements::of(
+        given(Set::of(
             Primitive::string(),
             Primitive::int(),
             Primitive::float(),
@@ -229,14 +229,14 @@ return static function() {
     );
     yield proof(
         'Primitive::mixed()->accepts()',
-        given(Set\Either::any(
+        given(Set::either(
             $primitives,
-            Set\Composite::immutable(
+            Set::compose(
                 Union::of(...),
                 $primitives,
                 $primitives,
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 Intersection::of(...),
                 $primitives,
                 $primitives,

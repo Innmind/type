@@ -22,7 +22,7 @@ return static function() {
     );
     yield proof(
         'Build primitive',
-        given(Set\Elements::of(
+        given(Set::of(
             'string',
             'int',
             'float',

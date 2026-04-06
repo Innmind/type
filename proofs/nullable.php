@@ -11,7 +11,7 @@ use Innmind\Type\{
 use Innmind\BlackBox\Set;
 
 return static function() {
-    $primitives = Set\Elements::of(
+    $primitives = Set::of(
         Primitive::string(),
         Primitive::int(),
         Primitive::float(),
@@ -20,7 +20,7 @@ return static function() {
         Primitive::object(),
         Primitive::resource(),
     );
-    $classes = Set\Elements::of(
+    $classes = Set::of(
         ArrayObject::class,
         Iterator::class,
         Countable::class,
@@ -28,37 +28,37 @@ return static function() {
 
     yield proof(
         'Nullable::allows()',
-        given(Set\Either::any(
-            Set\Composite::immutable(
+        given(Set::either(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Strings::any()),
-                Set\Elements::of(Primitive::string()),
+                Set::strings()->nullable(),
+                Set::of(Primitive::string()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Integers::any()),
-                Set\Elements::of(Primitive::int()),
+                Set::integers()->nullable(),
+                Set::of(Primitive::int()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Elements::of(new ArrayObject)),
-                Set\Elements::of(ClassName::of(ArrayObject::class)),
+                Set::of(new ArrayObject)->nullable(),
+                Set::of(ClassName::of(ArrayObject::class)),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Either::any(
-                    Set\Integers::any(),
-                    Set\RealNumbers::any(),
-                )),
-                Set\Elements::of(Union::of(
+                Set::either(
+                    Set::integers(),
+                    Set::realNumbers(),
+                )->nullable(),
+                Set::of(Union::of(
                     Primitive::int(),
                     Primitive::float(),
                 )),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Nullable::of(Set\Elements::of(new ArrayObject)),
-                Set\Elements::of(Intersection::of(
+                Set::of(new ArrayObject)->nullable(),
+                Set::of(Intersection::of(
                     ClassName::of(Countable::class),
                     ClassName::of(IteratorAggregate::class),
                 )),
@@ -72,34 +72,34 @@ return static function() {
     );
     yield proof(
         'Nullable::allows() failure',
-        given(Set\Either::any(
-            Set\Composite::immutable(
+        given(Set::either(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Integers::any(),
-                Set\Elements::of(Primitive::string()),
+                Set::integers(),
+                Set::of(Primitive::string()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Strings::any(),
-                Set\Elements::of(Primitive::int()),
+                Set::strings(),
+                Set::of(Primitive::int()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Strings::any(),
-                Set\Elements::of(ClassName::of(ArrayObject::class)),
+                Set::strings(),
+                Set::of(ClassName::of(ArrayObject::class)),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Strings::any(),
-                Set\Elements::of(Union::of(
+                Set::strings(),
+                Set::of(Union::of(
                     Primitive::int(),
                     Primitive::float(),
                 )),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Elements::of(new SplObjectStorage),
-                Set\Elements::of(Intersection::of(
+                Set::of(new SplObjectStorage),
+                Set::of(Intersection::of(
                     ClassName::of(Countable::class),
                     ClassName::of(IteratorAggregate::class),
                 )),
@@ -113,15 +113,15 @@ return static function() {
     );
     yield proof(
         'Nullable::accepts()',
-        given(Set\Either::any(
+        given(Set::either(
             $primitives,
             $classes,
-            Set\Composite::immutable(
+            Set::compose(
                 Union::of(...),
-                Set\Either::any($primitives, $classes),
-                Set\Either::any($primitives, $classes),
+                Set::either($primitives, $classes),
+                Set::either($primitives, $classes),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 Intersection::of(...),
                 $classes,
                 $classes,
@@ -137,21 +137,21 @@ return static function() {
     );
     yield proof(
         'Nullable::accepts() failure',
-        given(Set\Either::any(
-            Set\Composite::immutable(
+        given(Set::either(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Elements::of(Primitive::int()),
-                Set\Elements::of(Primitive::string()),
+                Set::of(Primitive::int()),
+                Set::of(Primitive::string()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Elements::of(Primitive::string()),
-                Set\Elements::of(Primitive::int()),
+                Set::of(Primitive::string()),
+                Set::of(Primitive::int()),
             ),
-            Set\Composite::immutable(
+            Set::compose(
                 static fn(...$args) => $args,
-                Set\Elements::of(Primitive::string()),
-                Set\Elements::of(ClassName::of(Countable::class)),
+                Set::of(Primitive::string()),
+                Set::of(ClassName::of(Countable::class)),
             ),
         )),
         static function($assert, $pair) {
