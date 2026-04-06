@@ -10,15 +10,12 @@ namespace Innmind\Type;
  */
 final class Nullable implements Type
 {
-    /** @var Type<A> */
-    private Type $type;
-
     /**
      * @param Type<A> $type
      */
-    private function __construct(Type $type)
-    {
-        $this->type = $type;
+    private function __construct(
+        private Type $type,
+    ) {
     }
 
     /**

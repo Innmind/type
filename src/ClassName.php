@@ -10,17 +10,13 @@ namespace Innmind\Type;
  */
 final class ClassName implements Type
 {
-    /** @var class-string<A> */
-    private string $class;
-    private bool $enum;
-
     /**
      * @param class-string<A> $class
      */
-    private function __construct(string $class, bool $enum)
-    {
-        $this->class = $class;
-        $this->enum = $enum;
+    private function __construct(
+        private string $class,
+        private bool $enum,
+    ) {
     }
 
     /**

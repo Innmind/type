@@ -10,19 +10,14 @@ namespace Innmind\Type;
  */
 final class Primitive implements Type
 {
-    /** @var pure-callable(mixed): bool */
-    private $allows;
-    /** @var non-empty-string */
-    private string $kind;
-
     /**
-     * @param pure-callable(mixed): bool $allows
+     * @param pure-Closure(mixed): bool $allows
      * @param non-empty-string $kind
      */
-    private function __construct(callable $allows, string $kind)
-    {
-        $this->allows = $allows;
-        $this->kind = $kind;
+    private function __construct(
+        private \Closure $allows,
+        private string $kind,
+    ) {
     }
 
     /**
