@@ -30,6 +30,7 @@ final class Primitive implements Type
      *
      * @return self<string>
      */
+    #[\NoDiscard]
     public static function string(): self
     {
         /** @var self<string> */
@@ -41,6 +42,7 @@ final class Primitive implements Type
      *
      * @return self<int>
      */
+    #[\NoDiscard]
     public static function int(): self
     {
         /** @var self<int> */
@@ -52,6 +54,7 @@ final class Primitive implements Type
      *
      * @return self<float>
      */
+    #[\NoDiscard]
     public static function float(): self
     {
         /** @var self<float> */
@@ -63,6 +66,7 @@ final class Primitive implements Type
      *
      * @return self<bool>
      */
+    #[\NoDiscard]
     public static function bool(): self
     {
         /** @var self<bool> */
@@ -74,6 +78,7 @@ final class Primitive implements Type
      *
      * @return self<array>
      */
+    #[\NoDiscard]
     public static function array(): self
     {
         /** @var self<array> */
@@ -85,6 +90,7 @@ final class Primitive implements Type
      *
      * @return self<object>
      */
+    #[\NoDiscard]
     public static function object(): self
     {
         /** @var self<object> */
@@ -96,6 +102,7 @@ final class Primitive implements Type
      *
      * @return self<resource>
      */
+    #[\NoDiscard]
     public static function resource(): self
     {
         /** @var self<resource> */
@@ -107,6 +114,7 @@ final class Primitive implements Type
      *
      * @return self<mixed>
      */
+    #[\NoDiscard]
     public static function mixed(): self
     {
         /** @var self<mixed> */

@@ -31,6 +31,7 @@ final class ClassName implements Type
      *
      * @return self<C>
      */
+    #[\NoDiscard]
     public static function of(string $class): self
     {
         return new self($class, false);
@@ -44,11 +45,13 @@ final class ClassName implements Type
      *
      * @return self<C>
      */
+    #[\NoDiscard]
     public static function ofEnum(string $class): self
     {
         return new self($class, true);
     }
 
+    #[\NoDiscard]
     public function enum(): bool
     {
         return $this->enum;

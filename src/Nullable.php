@@ -29,6 +29,7 @@ final class Nullable implements Type
      *
      * @return self<B>
      */
+    #[\NoDiscard]
     public static function of(Type $type): self
     {
         return new self($type);
@@ -37,6 +38,7 @@ final class Nullable implements Type
     /**
      * @return Type<A>
      */
+    #[\NoDiscard]
     public function type(): Type
     {
         return $this->type;
