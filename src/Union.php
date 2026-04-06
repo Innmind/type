@@ -11,19 +11,14 @@ namespace Innmind\Type;
  */
 final class Union implements Type
 {
-    /** @var Type<A> */
-    private Type $left;
-    /** @var Type<B> */
-    private Type $right;
-
     /**
      * @param Type<A> $left
      * @param Type<B> $right
      */
-    private function __construct(Type $left, Type $right)
-    {
-        $this->left = $left;
-        $this->right = $right;
+    private function __construct(
+        private Type $left,
+        private Type $right,
+    ) {
     }
 
     /**
